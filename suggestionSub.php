@@ -6,7 +6,7 @@ $postDetails = array();
 $search_keyy = $_GET['term'];
 
 //get rows query
-$query = "SELECT DISTINCT(Address) FROM places WHERE Address LIKE '%,%$search_keyy%,%' GROUP BY Address LIMIT 3";
+$query = "SELECT DISTINCT(Address) FROM places WHERE Address LIKE '%,%$search_keyy%,%' GROUP BY Address LIMIT 3 ";
 $statement = $connect->prepare($query);
 $statement->execute();
 $result = $statement->fetchAll();

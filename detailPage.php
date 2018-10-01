@@ -10,6 +10,11 @@
     $localPhoneNum = $_POST['localPhNum'];
     $internationalPhoneNum = $_POST['internationalPhNum'];
     $website = $_POST['website'];
+
+    $jsonUrl = "https://data.melbourne.vic.gov.au/resource/dtpv-d4pf.json";
+    $data = file_get_contents($jsonUrl);
+    $jsonRows = json_decode($data);
+
     
     
     include('database_connection.php');
@@ -49,7 +54,7 @@
     <style>
        /* Set the size of the div element that contains the map */
       #map {
-        height: 550px;  
+        height: 450px;  
         width: 100%;  /* The width is the width of the web page */
        }
         
@@ -202,14 +207,7 @@
                     <a href='<?php echo $website; ?>' target="_blank"><?php echo $website; ?></a>
                     <br/>
                     <br />
-                    
-                    <div class="dropdown">
-                      <button class="dropbtn">Seclect A Day</button>
-                      <div class="dropdown-content">
-                        <a href="#"><?php echo "Today: " . date("Y-m-d") . "<br>";?></a>
-                        <a href="#"><?php echo "Tomorow: " . date("Y-m-d" , strtotime("+1 day")) . "<br>";?></a>
-                      </div>
-                    </div>
+
                     <br/>
                 </div>
                 
@@ -227,8 +225,20 @@
                           document.getElementById('map'), {zoom: 15, center: location});
                       // The marker, positioned at Uluru
                       var marker = new google.maps.Marker({position: location, map: map});
+                        
+                         marker.content = '<div id="content">'+
+                            '<div id="siteNotice">'+
+                            '</div>'+
+                            '<h5><b><?php echo $Name ?></b></h5>'+
+                            '</div>';
+                        
                      var infoWindow = new google.maps.InfoWindow;
-                        var image = "images/parking.png";
+                        google.maps.event.addListener(marker,'click', function(){
+                            infowindow.setContent(this.content);
+                            infowindow.open(this.getMap(),this);
+                        });             
+                        
+                        var image = "images/parking2.png";
                         
                           <?php 
                             include('database_connection.php');
@@ -270,16 +280,46 @@
                             '</div>'+
                             '<p>' + '<a href="' + url + '"target="_blank">View More Details on Google Map</a></p>' +
                             '</div>';
+                        
                         var infowindow = new google.maps.InfoWindow();
                         google.maps.event.addListener(marker,'click', function(){
                             infowindow.setContent(this.content);
                             infowindow.open(this.getMap(),this);
-                        });
-//                        
+                        });             
                         <?php
                             }
 
                             ?>
+
+                        
+                        <?php 
+                            foreach ($jsonRows as $jsonRow)
+                            {
+                                ?>
+                        
+                        if ("<?php echo $jsonRow->status ?>" == "Unoccupied"){
+                            image = "images/unoccupied.png";
+                            
+                            }else{
+                            image = "images/present.png";
+                            }
+
+                        
+                        
+                        var marker = new google.maps.Marker({
+                            position: {lat:<?php echo $jsonRow->lat ?> , lng:<?php echo $jsonRow->lon ?>},
+                            map: map, 
+                            icon: image
+                        });
+        
+                        <?php
+                            }
+
+                            ?>
+                        
+                        
+                        
+                        
                         
                         
                     }
@@ -292,9 +332,20 @@
                     <script async defer
                     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7JXFzyVe-4DEE81-4sVW7JDOmuHFs7mw&callback=initMap">
                     </script>
+                    
+                <div>
+                   <img src="images/note.png" >
+                    
                 </div>
+                
+                </div>
+                
                 <div class="clearfix"></div>
+                
+
             </div>
+            
+            
             <div>
     
 
