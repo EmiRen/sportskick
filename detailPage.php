@@ -127,6 +127,8 @@
                     <ul class="nav navbar-nav navbar-right float-nav nav-algn_l">
                           
 <!--                          <li><a href="contact.html">Contact</a></li>-->
+                                               <li><a href="eventsList.php">Sports Events</a></li>
+                        <li><a href="compare.php">Compare</a></li>
                         <li><a href="about.html">About Us</a></li>
                     </ul>
                     <div class="clearfix"></div>
@@ -427,7 +429,7 @@ if($total_poll_row > 0)
 			</div>
 			<div class="col-md-10">
 				<div class="progress">
-					<div class="progress-bar <?php echo $progress_bar_class; ?>" role="progressbar" aria-valuenow="<?php echo $percentage_vote; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage_vote; ?>">
+					<div class="progress-bar <?php echo $progress_bar_class; ?>" role="progressbar" aria-valuenow="<?php echo $percentage_vote; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percentage_vote; ?>%">
 						<?php echo $percentage_vote; ?> % Voted 
 					</div>
 				</div>

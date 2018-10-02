@@ -59,6 +59,8 @@
            if(userLat!='' && userLng!=''){
                latCookie = "latCookie";
            longCookie = "lngCookie";
+               document.cookie = latCookie+"="+userLat;
+           document.cookie = longCookie+"="+userLng;
            }
                
        }
@@ -132,6 +134,8 @@
                                 <ul class="nav navbar-nav navbar-right float-nav nav-algn_l">
 
                                     <!--                                  <li><a href="contact.html">Contact</a></li>-->
+                                    <li><a href="compare.php">Compare</a></li>
+                                    <li><a href="eventsList.php">Sports Events</a></li>
                                     <li><a href="about.html">About Us</a></li>
                                 </ul>
                                 <div class="clearfix"></div>

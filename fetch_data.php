@@ -143,7 +143,7 @@ $query = "SELECT * FROM places WHERE Status =1 AND ((Category LIKE '%".$searchTe
     
 //$query.=" LIMIT 250";
  
-//    echo $query;
+    //echo $query;
     
 
     
