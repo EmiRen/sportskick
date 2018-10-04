@@ -88,7 +88,7 @@ if(isset($_POST["action"]))
   }
 
 $searchText = explode(' ',$_POST["SearchText"]);
-$query = "SELECT * FROM places WHERE Status =1 AND ((Category LIKE '%".$searchText[0]."%' OR Name LIKE '%".$searchText[0]."%'  OR Type LIKE '%".$searchText[0]."%')";
+$query = "SELECT * FROM places WHERE Status =1 AND ((Category LIKE '%".$searchText[0]."%' OR Type LIKE '%".$searchText[0]."%')";
     for($i=1;$i<count($searchText); $i++){
     if(!empty($searchText[$i])){
         $query.="OR (Category LIKE '%".$searchText[$i]."%' OR Name LIKE '%".$searchText[$i]."%' OR Type LIKE '%".$searchText[$i]."%')";

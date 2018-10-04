@@ -127,8 +127,9 @@
                     <ul class="nav navbar-nav navbar-right float-nav nav-algn_l">
                           
 <!--                          <li><a href="contact.html">Contact</a></li>-->
+                                                <li><a href="compare.php">Compare</a></li>
                                                <li><a href="eventsList.php">Sports Events</a></li>
-                        <li><a href="compare.php">Compare</a></li>
+                      
                         <li><a href="about.html">About Us</a></li>
                     </ul>
                     <div class="clearfix"></div>
@@ -300,18 +301,30 @@
                                 ?>
                         
                         if ("<?php echo $jsonRow->status ?>" == "Unoccupied"){
-                            image = "images/unoccupied.png";
+                            image = "images/available.png";
                             
-                            }else{
-                            image = "images/present.png";
-                            }
-
-                        
-                        
-                        var marker = new google.maps.Marker({
+                            var marker = new google.maps.Marker({
                             position: {lat:<?php echo $jsonRow->lat ?> , lng:<?php echo $jsonRow->lon ?>},
                             map: map, 
                             icon: image
+                        });
+                            marker.content = "Available Now";
+                            
+                            }else{
+                            image = "images/present.png";
+                                
+                            var marker = new google.maps.Marker({
+                            position: {lat:<?php echo $jsonRow->lat ?> , lng:<?php echo $jsonRow->lon ?>},
+                            map: map, 
+                            icon: image
+                        });
+                            marker.content = "Ocuupied Now";
+                            }
+                        
+                        var infowindow = new google.maps.InfoWindow();
+                        google.maps.event.addListener(marker,'click', function(){
+                            infowindow.setContent(this.content);
+                            infowindow.open(this.getMap(),this);
                         });
         
                         <?php
@@ -336,7 +349,7 @@
                     </script>
                     
                 <div>
-                   <img src="images/note.png" >
+                   <img src="images/parkingnote.png" >
                     
                 </div>
                 

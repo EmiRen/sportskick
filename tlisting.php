@@ -140,8 +140,9 @@ h4 {
                             <h1><a href="index.php">Sports Kick</a></h1>
                         </div>
                         <ul class="nav navbar-nav navbar-right float-nav nav-algn_l">
-                                                   <li><a href="eventsList.php">Sports Events</a></li>
-                        <li><a href="compare.php">Compare</a></li>
+                         <li><a href="compare.php">Compare</a></li>
+                        <li><a href="eventsList.php">Sports Events</a></li>
+                       
                             <li><a href="about.html">About Us</a></li>
 <!--                            <li><a href="contact.html">Contact</a></li>-->
                         </ul>
@@ -311,7 +312,7 @@ h4 {
                 var action = 'fetch_data';
                 var Type = get_filter('Type');
                 var Category = get_filter('Category');
-                var Distance = get_filter('Distance')[get_filter('Distance').length - 1];
+                var Distance = get_distancefilter('Distance')[get_distancefilter('Distance').length - 1];
                 var suburbLocation = document.getElementById("search_suburb").value;
                 var searchText = document.getElementById("homesearch_category").value;
                 var quickLinks = '<?php echo $quickFilter; ?>';
@@ -339,10 +340,28 @@ h4 {
 
             function get_filter(class_name) {
                 var filter = [];
+                
                 $('.' + class_name + ':checked').each(function() {
+                   
                     filter.push($(this).val());
                 });
-                console.log("Inside get_filter()" + filter)
+               
+                return filter;
+            }
+            
+            function get_distancefilter(class_name) {
+                var filter = [];
+                
+                $('.' + class_name + ':checked').each(function() {
+                   
+                    filter.push($(this).val());
+                    $('.' + class_name + ':checked').on('change', function() {
+		                  $('.' + class_name + ':checked').not(this).prop('checked', false);  
+		             });
+
+                    
+                });
+               
                 return filter;
             }
 
